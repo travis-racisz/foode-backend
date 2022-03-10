@@ -1,0 +1,44 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Foode backend",
+  "main": "server.js",
+  "scripts": {
+    "test": "jest --detectOpenHandles",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@graphql-tools/schema": "^8.3.1",
+    "apollo-server": "^3.5.0",
+    "apollo-server-core": "^3.5.0",
+    "apollo-server-express": "^3.5.0",
+    "bcrypt": "^5.0.1",
+    "cloudinary": "^1.28.1",
+    "dataloader": "^2.0.0",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "graphql": "^15.7.2",
+    "graphql-subscriptions": "^2.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "knex": "^0.95.14",
+    "mysql2": "^2.3.3",
+    "nodemailer": "^6.7.2",
+    "nodemon": "^2.0.15",
+    "objection": "^3.0.0",
+    "passport": "^0.5.2",
+    "passport-facebook": "^3.0.0",
+    "pg": "^8.7.1",
+    "pg-hstore": "^2.3.4",
+    "react-facebook-login": "^4.1.1",
+    "sequelize": "^6.12.0-alpha.1",
+    "stripe": "^8.199.0",
+    "subscriptions-transport-ws": "^0.11.0",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "jest": "^27.5.1",
+    "sequelize-cli": "^6.3.0"
+  }
+}
