@@ -7,7 +7,7 @@ const { Sequelize } = require('sequelize')
 
 // replace these values with env values
 const sequelize = new Sequelize(process.env.DBNAME, process.env.DBUSER, process.env.DBPASS, {
-    host: 'localhost',
+    host: process.env.DATABASE_URL,
     dialect: 'postgres',
     timezone: '+00:00',
     logging:false
