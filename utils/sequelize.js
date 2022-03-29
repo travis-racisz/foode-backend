@@ -14,7 +14,8 @@ const sequelize = new Sequelize(process.env.DATABASE_URL, {
     dialect: 'postgres',
     timezone: '+00:00',
     logging:false,
-    port: 5432
+    port: 5432,
+    ssl:true
   })
 // const sequelize = require("../index")
 
