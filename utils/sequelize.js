@@ -15,7 +15,11 @@ const sequelize = new Sequelize(process.env.DATABASE_URL, {
     timezone: '+00:00',
     logging:false,
     port: 5432,
-    ssl:true
+    ssl:true, 
+    dialectOptions: { 
+        ssl: true, 
+        rejectUnauthorized: false
+    }
   })
 // const sequelize = require("../index")
 
