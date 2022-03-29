@@ -33,6 +33,10 @@ module.exports = (sequelize, DataTypes) => {
         available: { 
             type: DataTypes.BOOLEAN
         }, 
+        updatedAt: {
+            type: DataTypes.DATE,
+            defaultValue: Date.now()
+          },
         size: DataTypes.STRING,
         priceId: DataTypes.STRING
     })
