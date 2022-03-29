@@ -10,7 +10,8 @@ const sequelize = new Sequelize(process.env.DATABASE_URL, {
     host: 'localhost',
     dialect: 'postgres',
     timezone: '+00:00',
-    logging:false
+    logging:false,
+    port: 5432
   })
 // const sequelize = require("../index")
 
