@@ -526,6 +526,7 @@ async function startApolloServer(typeDefs, resolvers){
                     }
                 }
             }, 
+            introspection: true,
             // async requestDidStart(requestContext){ 
             //     return { 
             //         // async didResolveSource(requestContext){ 
