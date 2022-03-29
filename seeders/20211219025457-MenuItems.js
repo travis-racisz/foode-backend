@@ -17,6 +17,7 @@ module.exports = {
         name: "breakfast taco", 
         price: 1000, 
         createdAt: new Date().toISOString(), 
+        updatedAt: new Date().toISOString(),
         description: "Eggs and beans wrapped in a tortilla", 
         menu_id: 4,
         
@@ -26,6 +27,7 @@ module.exports = {
         name: "breakfast burrito", 
         price: 1200, 
         createdAt: new Date().toISOString(), 
+        updatedAt: new Date().toISOString(),
         description: "Eggs and beans wrapped in a tortilla shaped into a burrito", 
         menu_id: 4,
         
@@ -35,6 +37,7 @@ module.exports = {
         name: "potato burrito", 
         price: 800, 
         createdAt: new Date().toISOString(), 
+        updatedAt: new Date().toISOString(),
         description: "Potatoes with a creamy spicy sauce", 
         menu_id: 5,
         
@@ -43,6 +46,7 @@ module.exports = {
         name: "potato burrito", 
         price: 800, 
         createdAt: new Date().toISOString(), 
+        updatedAt: new Date().toISOString(),
         description: "Potatoes with a creamy spicy sauce", 
         menu_id: 6, 
         
@@ -51,6 +55,7 @@ module.exports = {
         name: "Cheese Quesadilla", 
         price: 1200, 
         createdAt: new Date().toISOString(), 
+        updatedAt: new Date().toISOString(),
         description: "a toasted tortilla with cheese", 
         menu_id: 5,
         
@@ -59,6 +64,7 @@ module.exports = {
         name: "Cheese Quesadilla", 
         price: 1200, 
         createdAt: new Date().toISOString(), 
+        updatedAt: new Date().toISOString(),
         description: "a toasted tortilla with cheese", 
         menu_id: 6,
         
@@ -67,6 +73,7 @@ module.exports = {
         name: "chicken Quesadilla", 
         price: 1600, 
         createdAt: new Date().toISOString(), 
+        updatedAt: new Date().toISOString(),
         description: "a toasted tortilla with cheese and chicken", 
         menu_id: 5,
         
@@ -75,6 +82,7 @@ module.exports = {
         name: "chicken Quesadilla", 
         price: 1600, 
         createdAt: new Date().toISOString(), 
+        updatedAt: new Date().toISOString(),
         description: "a toasted tortilla with cheese and chicken", 
         menu_id: 6,
         
@@ -83,6 +91,7 @@ module.exports = {
         name: "Egg Pizza?", 
         price: 1600, 
         createdAt: new Date().toISOString(), 
+        updatedAt: new Date().toISOString(),
         description: "please dont order this its literally scrambled eggs on pizza", 
         menu_id: 1,
         
@@ -92,6 +101,7 @@ module.exports = {
         name: "Breakfast Pizza", 
         price: 1600, 
         createdAt: new Date().toISOString(), 
+        updatedAt: new Date().toISOString(),
         description: "Eggs sausage, with a white gravy sauce", 
         menu_id: 1,
         
@@ -101,6 +111,7 @@ module.exports = {
         name: "Meat Lovers Pizza", 
         price: 1600, 
         createdAt: new Date().toISOString(), 
+        updatedAt: new Date().toISOString(),
         description: "Eggs sausage, with a white gravy sauce", 
         menu_id: 2,
         
@@ -109,6 +120,7 @@ module.exports = {
         name: "Veggie Lovers Pizza", 
         price: 1600, 
         createdAt: new Date().toISOString(), 
+        updatedAt: new Date().toISOString(),
         description: "Eggs sausage, with a white gravy sauce", 
         menu_id: 2,
         
@@ -117,6 +129,7 @@ module.exports = {
         name: "Italian Pizza", 
         price: 1600, 
         createdAt: new Date().toISOString(), 
+        updatedAt: new Date().toISOString(),
         description: "Eggs sausage, with a white gravy sauce", 
         menu_id: 2,
         
@@ -125,6 +138,7 @@ module.exports = {
         name: "Regular Pizza", 
         price: 1600, 
         createdAt: new Date().toISOString(), 
+        updatedAt: new Date().toISOString(),
         description: "Eggs sausage, with a white gravy sauce", 
         menu_id: 2,
         
@@ -133,6 +147,7 @@ module.exports = {
         name: "Meat Lovers Pizza", 
         price: 1600, 
         createdAt: new Date().toISOString(), 
+        updatedAt: new Date().toISOString(),
         description: "Eggs sausage, with a white gravy sauce", 
         menu_id: 3,
         
@@ -141,6 +156,7 @@ module.exports = {
         name: "Veggie Lovers Pizza", 
         price: 1600, 
         createdAt: new Date().toISOString(), 
+        updatedAt: new Date().toISOString(),
         description: "Eggs sausage, with a white gravy sauce", 
         menu_id: 3,
         
@@ -149,6 +165,7 @@ module.exports = {
         name: "Italian Pizza", 
         price: 1600, 
         createdAt: new Date().toISOString(), 
+        updatedAt: new Date().toISOString(),
         description: "Eggs sausage, with a white gravy sauce", 
         menu_id: 3,
         
@@ -157,6 +174,7 @@ module.exports = {
         name: "Regular Pizza", 
         price: 1600, 
         createdAt: new Date().toISOString(), 
+        updatedAt: new Date().toISOString(),
         description: "Eggs sausage, with a white gravy sauce", 
         menu_id: 3,
         
@@ -165,6 +183,7 @@ module.exports = {
         name: "Breakfast Chicken Biscuit", 
         price: 600, 
         createdAt: new Date().toISOString(), 
+        updatedAt: new Date().toISOString(),
         description: "Chicken and eggs on a biscuit", 
         menu_id: 7,
         
@@ -174,6 +193,7 @@ module.exports = {
         name: "Breakfast Chicken Bagel", 
         price: 600, 
         createdAt: new Date().toISOString(), 
+        updatedAt: new Date().toISOString(),
         description: "Chicken and eggs on a Bagel", 
         menu_id: 7,
         
@@ -183,6 +203,7 @@ module.exports = {
         name: "Coffee", 
         price: 200, 
         createdAt: new Date().toISOString(), 
+        updatedAt: new Date().toISOString(),
         description: "black coffee", 
         menu_id: 7,
         
@@ -192,6 +213,7 @@ module.exports = {
         name: "Chicken Tenders", 
         price: 1200, 
         createdAt: new Date().toISOString(), 
+        updatedAt: new Date().toISOString(),
         description: "a basket of chicken tenders and a side of fries", 
         menu_id: 8,
         
@@ -200,6 +222,7 @@ module.exports = {
         name: "Chicken Tenders spicy", 
         price: 1200, 
         createdAt: new Date().toISOString(), 
+        updatedAt: new Date().toISOString(),
         description: "a basket of spicy chicken tenders and a side of fries", 
         menu_id: 8,
         
@@ -208,6 +231,7 @@ module.exports = {
         name: "Chicken Wings", 
         price: 1200, 
         createdAt: new Date().toISOString(), 
+        updatedAt: new Date().toISOString(),
         description: "a basket of chicken wings and a side of fries", 
         menu_id: 8,
         
@@ -216,6 +240,7 @@ module.exports = {
         name: "Chicken Tenders", 
         price: 1200, 
         createdAt: new Date().toISOString(), 
+        updatedAt: new Date().toISOString(),
         description: "a basket of chicken tenders and a side of fries", 
         menu_id: 9,
         
@@ -224,6 +249,7 @@ module.exports = {
         name: "Chicken Tenders spicy", 
         price: 1450, 
         createdAt: new Date().toISOString(), 
+        updatedAt: new Date().toISOString(),
         description: "a basket of spicy chicken tenders and a side of fries", 
         menu_id: 9,
         
@@ -232,6 +258,7 @@ module.exports = {
         name: "Chicken Wings", 
         price: 1700, 
         createdAt: new Date().toISOString(), 
+        updatedAt: new Date().toISOString(),
         description: "a basket of chicken wings and a side of fries", 
         menu_id: 9,
         
@@ -240,6 +267,7 @@ module.exports = {
         name: "Family Bucket Meal", 
         price: 2700, 
         createdAt: new Date().toISOString(), 
+        updatedAt: new Date().toISOString(),
         description: "a large bucket of chicken for the entire family", 
         menu_id: 9,
         
