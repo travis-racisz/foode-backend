@@ -299,7 +299,7 @@ const resolvers = {
         getAllOrders: getAllOrders,
         async resturaunt(root, { id },  { loader }){ 
             return await sequelize.models.Resturaunts.findAll({ 
-                where: {id: id, completed_registration: true}
+                where: {id: id}
             })
         },
         async getMenu(root, { ids }, {hour}){ 
@@ -547,8 +547,8 @@ async function startApolloServer(typeDefs, resolvers){
     await server.start()
     server.applyMiddleware({ app })
     await new Promise(resolve => { 
-        httpServer.listen( { port: 8174 }, resolve)})
-    console.log(`🚀 Server ready at http://localhost:8174${server.graphqlPath}`)
+        httpServer.listen( { port: process.env.PORT }, resolve)})
+    console.log(`🚀 Server ready at http://localhost:${process.env.PORT}${server.graphqlPath}`)
 }
 
 ;

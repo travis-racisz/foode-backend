@@ -11,14 +11,14 @@ const addOrder = async (_, args, context) => {
     // then find a driver, update status
     // then make request to resturaunt to get order approved, update status
     
-    const user = jwt.verify(context.token, process.env.SECRET, function(err, decoded){ 
-        if(err){ 
-            throw new Error(err)
-        }
-        if(decoded){ 
-            return decoded
-        }
-    })
+    // const user = jwt.verify(context.token, process.env.SECRET, function(err, decoded){ 
+    //     if(err){ 
+    //         throw new Error(err)
+    //     }
+    //     if(decoded){ 
+    //         return decoded
+    //     }
+    // })
     console.log(args)
     //figure out who to transfer the money to, by getting the menu, then resturaunt, then the owner and use their stripe ID to transfer the money
     const menu = await models.Menus.findOne({ 
