@@ -540,7 +540,8 @@ async function startApolloServer(typeDefs, resolvers){
         
         context: ({req}) => { 
             const token = req.headers.authorization
-            const hour = new Date().getHours()
+            // const hour = new Date().getHours()
+            const hour = 10
             return {req: req.body, token: token, hour}
         }
         // plugins: [ApolloServerPluginDrainHttpServer({ httpServer })]
