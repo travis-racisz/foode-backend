@@ -1,16 +1,10 @@
 {
   "development": {
-    "username": "bcfhylmhwhzrtc",
-    "password": "b789b9d5fa62f6e3470d8346a0a0afeb9b1e9415f4b1cb429af3ad0b7a78c27a",
-    "database": "d9fb4ogh96o8i2",
-    "host": "ec2-54-173-77-184.compute-1.amazonaws.com",
-    "dialect": "postgres",
-    "dialectOptions": { 
-      "ssl": { 
-        "require": "true", 
-        "rejectUnauthorized": "false"
-      }
-    }
+    "username": "postgres",
+    "password": "postgres",
+    "database": "foode",
+    "host": "localhost",
+    "dialect": "postgres"
   },
   "test": {
     "username": "bcfhylmhwhzrtc",
@@ -33,8 +27,8 @@
     "dialect": "postgres",
     "dialectOptions": { 
       "ssl": { 
-        "require": true, 
-        "rejectUnauthorized": false
+        "require": "true", 
+        "rejectUnauthorized": "false"
       }
     }
   }

@@ -126,6 +126,21 @@ const typeDefs = gql`
         url: String
     }
 
+    type Options { 
+        id: ID,
+        name: String,
+        value: Int,
+        priceId: String,
+        menuItemId: ID,
+    }
+
+    input OptionsInput {
+        id: ID,
+        name: String,
+        value: Int,
+        menuItemId: ID,
+    }
+
     
     type Order{ 
         id:ID, 
@@ -154,6 +169,7 @@ const typeDefs = gql`
         description: String,
         available: Boolean, 
         category: String
+        options: [Options]
     }
     
     input InputMenuItems{
@@ -226,6 +242,20 @@ const typeDefs = gql`
         orderStatus: String
     }
 
+    type OptionsGroup{ 
+        id: ID,
+        name: String, 
+        description: String,
+        numberOfChoices: Int,
+    }
+
+    input OptionsGroupInput{
+        name: String,
+        description: String,
+        numberOfChoices: Int,
+        options: [OptionsInput]
+    }
+
     type Driver{ 
         id: ID, 
         email:String, 
@@ -259,7 +289,7 @@ const typeDefs = gql`
         updateMenu(menuId: String, name: String, openingHour: Int, closingHour: Int): Menu
         updateMenuItems(menuItemId: Int, name: String, price: Int, description: String, available: Boolean, ): MenuItems
         addMenu(resturauntId: Int, name: String, openingHour: Int, closingHour: Int): Menu
-        addMenuItem(resturauntId: Int, name: String, price:Int, description: String, menu_id: Int, available: Boolean  ): MenuItems
+        addMenuItem(resturauntId: Int, name: String, price:Int, description: String, menu_id: Int, available: Boolean, optionsGroup: [OptionsGroupInput]  ): MenuItems
         addOrderItems(menuItemId: String, qty: Int, orderId: String ): OrderItems
         addOrder(userId: String, status: String, specialRequests: String, price: Int, menuItems: [InputMenuItems]): SessionURL
         addDrivers(email: String, password: String): Driver

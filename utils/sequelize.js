@@ -6,7 +6,7 @@ require('dotenv').config()
 const { Sequelize } = require('sequelize')
 
 // replace these values with env values
-const sequelize = new Sequelize(process.env.DATABASE_URL, {
+const sequelize = new Sequelize(process.env.DATABASE_URL,{
     username: process.env.DBUSER,
     password: process.env.DBPASS,
     database: process.env.DBNAME,
@@ -41,6 +41,8 @@ const modelDefiner = [
     require("../models/orders"),
     require('../models/orderitems'),
     require('../models/drivers'),
+    require("../models/options"),
+    require("../models/optionsgroups")
 ]
 
 for (const associationDefiners of modelDefiner){ 

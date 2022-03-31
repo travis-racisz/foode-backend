@@ -8,7 +8,7 @@ const cloudinary = require('cloudinary').v2
 const addMenuItems = async (_, args, context) => { 
     // first check token to make sure its legit, 
     // then make sure the person has the correct permissions to add menuItems with that menuId
-
+    console.log(args)
     const user = jwt.verify(context.token, process.env.SECRET, function(err, decode){ 
         if(err){ 
             return new Error(err)
@@ -44,32 +44,83 @@ const addMenuItems = async (_, args, context) => {
 
     if(resturaunt){ 
         if(user.role === "Admin"){ 
-            // need to add the MenuItem as a product object in stripe dashboard
-            // const newProduct = await stripe.products.create({
-            //     name:args.name,
-            //     description: args.description
-            // })
-            const newPrice = await stripe.prices.create({ 
-                currency: 'usd',
-                unit_amount: args.price, 
-                product_data: { 
-                    name: args.name,
-                    active: true
-                }
-
-            })
-            if(newPrice){ 
-                console.log(newPrice)
-                const newMenuItem = await models.MenuItems.create({...args, priceId: newPrice.id})
-                return newMenuItem.dataValues
-            } 
+            try{ 
+                const newPrice = await stripe.prices.create({ 
+                    currency: 'usd',
+                    unit_amount: args.price, 
+                    product_data: { 
+                        name: args.name,
+                        active: true
+                    }
+    
+                })
+                if(newPrice){ 
+                    const newMenuItem = await models.MenuItems.create({...args, priceId: newPrice.id})
+                    console.log(models)
+                    args.optionsGroup.forEach(async(option) => {
+                        try{ 
+                            const newOptionsGroup = await models.OptionsGroups.create({ 
+                                name: option.name,
+                                description: option.description, 
+                                numberOfChoices: option.numberOfChoices,
+                            })
+                            if(newOptionsGroup){
+                                option.options.forEach(async(option) => { 
+                                    try{ 
+                                        const newOptionPrice = await stripe.prices.create({ 
+                                            currency: 'usd', 
+                                            unit_amount: option.value,
+                                            product_data: { 
+                                                name: option.name, 
+                                                active: true
+                                            }
+                                        })
+                                        try{ 
+                                            const newOptions = await models.Options.create({ 
+                                                name: option.name,
+                                                price: option.value, 
+                                                description: option.description,
+                                                optionsGroupId: newOptionsGroup.id,
+                                                menuItemId: newMenuItem.id,
+                                                priceId: newOptionPrice.id
+                                            })
+                                                
+            
+                                        } catch(err){ 
+                                            return new Error(err)
+                                        }
+                                    } catch(err){
+                                        console.log(err)
+                                        return new Error(err)
+                                    }
+                                    
+                                    
+                                })
+                                
+                            }
+    
+                        } catch(err){ 
+                            return new Error(err)
+                        }
+                        
+                    })
+                    
+                    return newMenuItem.dataValues
             }
+
+            } catch(err){ 
+                return new Error(err)
+            }
+            
+            
         return new Error("permission denied")
     }
+
 
     return new Error('permission denied')
 
 
+    }
 }
 
 module.exports = addMenuItems
