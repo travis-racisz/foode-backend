@@ -8,7 +8,6 @@ const cloudinary = require('cloudinary').v2
 const addMenuItems = async (_, args, context) => { 
     // first check token to make sure its legit, 
     // then make sure the person has the correct permissions to add menuItems with that menuId
-    console.log(args)
     const user = jwt.verify(context.token, process.env.SECRET, function(err, decode){ 
         if(err){ 
             return new Error(err)
@@ -56,16 +55,20 @@ const addMenuItems = async (_, args, context) => {
                 })
                 if(newPrice){ 
                     const newMenuItem = await models.MenuItems.create({...args, priceId: newPrice.id})
-                    console.log(models)
                     args.optionsGroup.forEach(async(option) => {
+                        console.log(option, "options")
                         try{ 
                             const newOptionsGroup = await models.OptionsGroups.create({ 
                                 name: option.name,
                                 description: option.description, 
                                 numberOfChoices: option.numberOfChoices,
+                                menuItem_id: newMenuItem.id
                             })
+                            console.log(newOptionsGroup, "newOptionsGroup")
                             if(newOptionsGroup){
+                                console.log(newOptionsGroup, "newOptionsGroupnext")
                                 option.options.forEach(async(option) => { 
+                                    console.log(option, "option.option")
                                     try{ 
                                         const newOptionPrice = await stripe.prices.create({ 
                                             currency: 'usd', 
@@ -78,15 +81,16 @@ const addMenuItems = async (_, args, context) => {
                                         try{ 
                                             const newOptions = await models.Options.create({ 
                                                 name: option.name,
-                                                price: option.value, 
+                                                value: option.value, 
                                                 description: option.description,
-                                                optionsGroupId: newOptionsGroup.id,
-                                                menuItemId: newMenuItem.id,
+                                                optionsGroup_id: newOptionsGroup.id,
                                                 priceId: newOptionPrice.id
                                             })
+                                            console.log(newOptions)
                                                 
             
                                         } catch(err){ 
+                                            console.log(err)
                                             return new Error(err)
                                         }
                                     } catch(err){
@@ -100,6 +104,7 @@ const addMenuItems = async (_, args, context) => {
                             }
     
                         } catch(err){ 
+                            console.log(err)
                             return new Error(err)
                         }
                         

@@ -33,6 +33,7 @@ const { pubsub } = require('./utils/sequelize')
 const requestPasswordReset = require('./mutations/requestPasswordReset')
 const passwordReset = require('./mutations/passwordReset')
 const driverCompletesDelivery = require('./mutations/driverCompletesDelivery')
+const options = require('./models/options')
 
     
 
@@ -131,7 +132,7 @@ const typeDefs = gql`
         name: String,
         value: Int,
         priceId: String,
-        menuItemId: ID,
+        optionsGroupId: ID,
     }
 
     input OptionsInput {
@@ -169,7 +170,7 @@ const typeDefs = gql`
         description: String,
         available: Boolean, 
         category: String
-        options: [Options]
+        optionsgroup: [OptionsGroup]
     }
     
     input InputMenuItems{
@@ -247,6 +248,7 @@ const typeDefs = gql`
         name: String, 
         description: String,
         numberOfChoices: Int,
+        options: [Options]
     }
 
     input OptionsGroupInput{
@@ -289,7 +291,7 @@ const typeDefs = gql`
         updateMenu(menuId: String, name: String, openingHour: Int, closingHour: Int): Menu
         updateMenuItems(menuItemId: Int, name: String, price: Int, description: String, available: Boolean, ): MenuItems
         addMenu(resturauntId: Int, name: String, openingHour: Int, closingHour: Int): Menu
-        addMenuItem(resturauntId: Int, name: String, price:Int, description: String, menu_id: Int, available: Boolean, optionsGroup: [OptionsGroupInput]  ): MenuItems
+        addMenuItem(resturauntId: Int, name: String, price:Int, description: String, menu_id: Int, available: Boolean, options: [OptionsInput], optionsGroup: [OptionsGroupInput]  ): MenuItems
         addOrderItems(menuItemId: String, qty: Int, orderId: String ): OrderItems
         addOrder(userId: String, status: String, specialRequests: String, price: Int, menuItems: [InputMenuItems]): SessionURL
         addDrivers(email: String, password: String): Driver
@@ -340,7 +342,16 @@ const resolvers = {
                     id: ids,
                     openingHour: {[Op.lte]: [hour]},
                     closingHour: {[Op.gte]: [hour]}
-                }, include: {model: sequelize.models.MenuItems}
+                }, 
+                include: [{
+                    model: sequelize.models.MenuItems,
+                    include: [{ 
+                        model: sequelize.models.OptionsGroups,
+                        include: [{
+                            model: sequelize.models.Options
+                        }]
+                    }]
+                }]
             
             })
             return menus
@@ -354,7 +365,15 @@ const resolvers = {
                     closingHour: {[Op.gte]: [hour]}
 
                 },
-                include: sequelize.models.MenuItems
+                include: [{
+                    model: sequelize.models.MenuItems,
+                    include: [{ 
+                        model: sequelize.models.OptionsGroups,
+                        include: [{
+                            model: sequelize.models.Options
+                        }]
+                    }]
+                }]
             })
             return allMenus
         },
@@ -404,9 +423,15 @@ const resolvers = {
                     openingHour: {[Op.lte]: [hour]},
                     closingHour: {[Op.gte]: [hour]}
                 },
-                include: { 
-                    model: sequelize.models.MenuItems
-                }
+                include: [{
+                    model: sequelize.models.MenuItems,
+                    include: [{ 
+                        model: sequelize.models.OptionsGroups,
+                        include: [{
+                            model: sequelize.models.Options
+                        }]
+                    }]
+                }]
             })
         }
     }, 
@@ -474,6 +499,24 @@ const resolvers = {
             return resturaunts
         }
     }, 
+    MenuItems: { 
+        async optionsgroup(parent, args, context){ 
+            return await sequelize.models.OptionsGroups.findAll({ 
+                where: { 
+                    menuItem_id: parent.dataValues.id
+                }
+            })
+        }
+    },
+    OptionsGroup: { 
+        async options(parent, args, context){
+            return await sequelize.models.Options.findAll({ 
+                where: { 
+                    optionsGroup_id: parent.dataValues.id
+                }
+            })
+        }
+    },
     Subscription: { 
         orderStatus: { 
             subscribe: () =>  pubsub.asyncIterator(["ORDER_STATUS_CHANGE"])

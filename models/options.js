@@ -3,15 +3,8 @@ module.exports = (sequelize, DataTypes) => {
   const Options = sequelize.define('Options', { 
     name: DataTypes.STRING,
     value: DataTypes.INTEGER,
-    menuItemId: { 
-        type: DataTypes.INTEGER,
-        references: { 
-            model: "MenuItems",
-            key: "id"
-        }
-    }, 
     priceId: DataTypes.STRING,
-    optionsGroupId: { 
+    optionsGroup_id: { 
         type: DataTypes.INTEGER,
         references: {
             model: "OptionsGroup",
@@ -19,5 +12,9 @@ module.exports = (sequelize, DataTypes) => {
         }
     }
   })
+  Options.associate = (models) => {
+    Options.belongsTo(models.OptionsGroup, {
+        foreignKey: "optionsGroup_id"})
+  }
   return Options;
 };

@@ -44,6 +44,8 @@ module.exports = (sequelize, DataTypes) => {
         MenuItems.belongsTo(models.Menus , { 
             foreignKey: "id"
         })
+        MenuItems.hasMany(models.OptionsGroups, {
+            foreignKey: "menuItem_id"})
     }
     return MenuItems
 }
