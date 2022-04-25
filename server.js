@@ -6,7 +6,6 @@ const { makeExecutableSchema } = require('@graphql-tools/schema')
 const { app, httpServer } = require('./utils/expressServer')
 
 
-
 const jwt = require('jsonwebtoken')
 const { pubsub } = require('./utils/sequelize')
 const options = require('./models/options')
