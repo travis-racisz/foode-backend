@@ -1,4 +1,4 @@
-const {sequelize} = require('../utils/sequelize')
+const {sequelize} = require('../../utils/sequelize')
 require('dotenv').config()
 const jwt = require('jsonwebtoken')
 // console.log(process.env['FACEBOOK_CLIENT_ID'], 'cliendID')

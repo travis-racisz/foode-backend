@@ -1,7 +1,7 @@
-const { sequelize } = require('../utils/sequelize')
+const { sequelize } = require('../../utils/sequelize')
 const { models } = sequelize
 const jwt = require('jsonwebtoken')
-const transporter  = require('../mailer/mailerConfig')
+const transporter  = require('../../mailer/mailerConfig')
 
 const requestPasswordReset = async(_, args, context) => { 
     // look up the user and generate a token with their account info

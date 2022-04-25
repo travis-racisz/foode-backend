@@ -1,7 +1,8 @@
-const { sequelize } = require('../utils/sequelize')
+const { sequelize } = require('../../utils/sequelize')
 const { models } = sequelize
+const db = require("../../utils/firebaseConfig")
 const jwt = require('jsonwebtoken')
-const { pubsub } = require('../utils/sequelize')
+const { pubsub } = require('../../utils/sequelize')
 const driverCompletesDelivery = async (_, args, context) => { 
     // get the order related to the driver
     // update the status as delivered
@@ -23,6 +24,9 @@ const driverCompletesDelivery = async (_, args, context) => {
         }
     })
 
+    const orderRef = db.collection('orders').doc(args.orderId)
+    const updateOrder = await orderRef.update({status: "complete"})
+    
     const updatedOrder = await order.update({ 
         status: "Completed"
     })

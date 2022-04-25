@@ -1,4 +1,4 @@
-const { sequelize } = require('../utils/sequelize')
+const { sequelize } = require('../../utils/sequelize')
 const { models } = sequelize
 const bcrypt = require('bcrypt')
 const stripe = require('stripe')(process.env.STRIPESECRET);

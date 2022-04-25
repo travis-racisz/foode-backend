@@ -1,7 +1,7 @@
-const { sequelize, } = require('../utils/sequelize')
+const { sequelize } = require('../../utils/sequelize.js')
 const { models } = sequelize
 const jwt = require('jsonwebtoken')
-const { pubsub } = require('../utils/sequelize')
+const { pubsub } = require('../../utils/sequelize')
 const driverAcceptsOrder = async (_, args, context) => { 
     // should check to see if the driver is logged in and is a driver to see this data
     const user = jwt.verify(context.token, process.env.SECRET, function(err, decode){ 

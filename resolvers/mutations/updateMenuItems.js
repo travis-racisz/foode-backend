@@ -1,4 +1,4 @@
-const { sequelize } = require('../utils/sequelize')
+const { sequelize } = require('../../utils/sequelize')
 const { models } = sequelize
 const jwt = require('jsonwebtoken')
 require('dotenv').config()
@@ -36,6 +36,8 @@ const updateMenuItems = async(_, args, context) => {
             id: menuItem.dataValues.id
         }
     })
+
+    console.log(menu)
 
     // check if the person making the request is an owner of the resturuant that that item belongs to
     const userResturaunts = await models.OwnersJoins.findAll({ 

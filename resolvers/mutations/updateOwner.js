@@ -1,4 +1,4 @@
-const {sequelize} = require('sequelize')
+const {sequelize} = require('../../utils/sequelize')
 const jwt = require('jsonwebtoken')
 require('dotenv').config()
 const updateOwner = async (_, args, context) => { 
