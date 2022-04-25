@@ -13,7 +13,7 @@ const addOrder = async (_, args, context) => {
     // then join the three tables, and you have your order details
     // then find a driver, update status
     // then make request to resturaunt to get order approved, update status
-    
+    console.log(args, "args")
     const restaurant = await models.Resturaunts.findOne({ 
         where: { 
             id: args.RestaurantId
