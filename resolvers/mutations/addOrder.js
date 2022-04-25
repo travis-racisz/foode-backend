@@ -21,6 +21,7 @@ const addOrder = async (_, args, context) => {
     })
 
     const orderRef = db.collection('orders').doc(args.orderId)
+    console.log(orderRef)
     const unsubscribe = orderRef.onSnapshot(async snapShot => { 
         const timeout = setTimeout(() => { 
             console.log("order timed out")
