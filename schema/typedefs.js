@@ -27,6 +27,7 @@ const typeDefs = gql`
         name: String,
         value: Int,
         menuItemId: ID,
+        priceId: string
     }
 
     
