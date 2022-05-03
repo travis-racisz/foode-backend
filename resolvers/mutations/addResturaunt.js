@@ -5,6 +5,7 @@ require('dotenv').config()
 const stripe = require('stripe')(process.env.STRIPESECRET)
 
 const addResturaunt = async(_, args, context) => { 
+    console.log(args)
     // replace secret with env variable 
     const verified = jwt.verify(context.token, process.env.SECRET, function(err, decoded){ 
         if(err){ 
@@ -32,8 +33,8 @@ const addResturaunt = async(_, args, context) => {
         const newResturaunt = await models.Resturaunts.create({ 
             name: args.name, 
             baseId: args.baseId, 
-            openingHour: args.openingHour, 
-            closingHour: args.closingHour,
+            opening_hour: args.openingHour, 
+            closing_hour: args.closingHour,
             stripe_id: stripeOwner.id, 
             completed_registration: false
         })

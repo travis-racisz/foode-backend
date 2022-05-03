@@ -26,10 +26,10 @@ const driverCompletesDelivery = async (_, args, context) => {
 
     const orderRef = db.collection('orders').doc(args.orderId)
     const updateOrder = await orderRef.update({status: "complete"})
-    
-    const updatedOrder = await order.update({ 
-        status: "Completed"
-    })
+
+    // const updatedOrder = await order.update({ 
+    //     status: "Completed"
+    // })
 
     const driver = await models.Drivers.findOne({ 
         where: { 

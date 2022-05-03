@@ -9,7 +9,9 @@ const typeDefs = gql`
     }
     
     type SessionURL { 
-        status: String
+        orderId: String,
+        client_secret: String
+        id:String
     }
 
     type Options { 
@@ -37,12 +39,26 @@ const typeDefs = gql`
         price: Int
     }
 
+
+    input OrderInput { 
+        id: Int,
+        name: String,
+        price: Int, 
+        description: String,
+        options: [OptionsInput],
+        optionsgroup: [OptionsGroupInput],
+        priceId: String,
+        hasPayed: Boolean,
+        userId: String,
+    }
+
     type OrderItems{ 
         id: ID, 
         name: String, 
         price: Int,
         order_id: Int,
         description: String,
+        optionsGroup: [OptionsGroup],
         qty: Int,
     }
 
@@ -68,6 +84,7 @@ const typeDefs = gql`
         menu_id: Int
 
     }
+
     
     type Tag { 
         id: ID,
@@ -143,6 +160,11 @@ const typeDefs = gql`
         options: [OptionsInput]
     }
 
+    type ClientSecret{ 
+        client_secret: String
+        id: String
+    }
+
     type Driver{ 
         id: ID, 
         email:String, 
@@ -178,13 +200,14 @@ const typeDefs = gql`
         addMenu(resturauntId: Int, name: String, openingHour: Int, closingHour: Int): Menu
         addMenuItem(resturauntId: Int, name: String, price:Int, description: String, menu_id: Int, available: Boolean, options: [OptionsInput], optionsGroup: [OptionsGroupInput]  ): MenuItems
         addOrderItems(menuItemId: String, qty: Int, orderId: String ): OrderItems
-        addOrder(orderId: String, RestaurantId:Int, total: Int): SessionURL
+        addOrder(RestaurantId:Int, total: Float, order: [OrderInput]): SessionURL
         addDrivers(email: String, password: String): Driver
         loginDrivers(email: String, password: String): Driver
         driverAcceptsOrder(orderId: String): Order
         requestPasswordReset(email: String): EmailResponse
         passwordReset(password: String): EmailResponse
         driverCompletesDelivery(orderId: String): Order
+        createPaymentIntent(total: Float, orderId: String): ClientSecret
     }
 
  

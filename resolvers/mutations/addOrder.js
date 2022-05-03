@@ -2,9 +2,8 @@ const {sequelize} = require("../../utils/sequelize")
 const db = require("../../utils/firebaseConfig")
 const {models} = sequelize
 const stripe = require('stripe')(process.env.STRIPESECRET)
-const jwt = require('jsonwebtoken')
-const { session } = require("passport/lib")
-const { Op } = require("sequelize/dist")
+
+
 const addOrder = async (_, args, context) => { 
     // first charge the user, update status
     // then add order to database
@@ -20,29 +19,74 @@ const addOrder = async (_, args, context) => {
         }
     })
 
-    const orderRef = db.collection('orders').doc(args.orderId)
+    console.log(args.total + (args.total * .27), "args.total + (args.total * .27)")
+    const newOrder = await db.collection("orders").add({
+        status: "pending",
+        total: args.total + (args.total * .27),
+        RestaurantId: args.RestaurantId,
+        orderDetails: args.order,
+    })
+   
+
+    const orderRef = db.collection('orders').doc(newOrder.id)
     // console.log(orderRef, "orderRef")
+    const timeout = setTimeout(() => { 
+        console.log("order timed out")
+
+        
+        orderRef.update({status: "canceled"})
+        unsubscribe()
+        
+    }, 60 * 1000)
     const unsubscribe = orderRef.onSnapshot(async snapShot => { 
-        const timeout = setTimeout(() => { 
-            // console.log("order timed out")
+        
+        switch(snapShot.data().status){ 
+            case "accepted": 
+                clearTimeout(timeout) 
+                // const transferToRestaurant = await stripe.transfers.create({
+                //     amount: (args.total - (args.total * .27)),
+                //     currency: "usd",
+                //     destination: restaurant.stripe_id,
+                // })
+                unsubscribe()
+                break
             
-            orderRef.update({status: "canceled"})
-            return {status: "canceled"}
-        }, 360 * 1000)
-        if(snapShot.status === "accepted"){
-            const transferToRestaurant = await stripe.transfers.create({
-                amount: (args.total - (args.total * .27)),
-                currency: "usd",
-                destination: restaurant.stripe_id,
-            })
-            
-            clearTimeout(timeout) 
-            unsubscribe()
-            return { status: "accepted" }
+            default: 
+                console.log("default")
+                break
         }
+            // const transferToRestaurant = await stripe.transfers.create({
+            //     amount: (args.total - (args.total * .27)),
+            //     currency: "usd",
+            //     destination: restaurant.stripe_id,
+            // })
+            
+            
+        
         // console.log(snapShot, "snapShot")
 
     })
+
+    const listenerForOrderUpdates = orderRef.onSnapshot(async snapShot => { 
+        if(snapShot.data().status === "canceled"){
+
+            // email the user that their order has been canceled
+            // no need to refund them because they didn't pay
+            console.log("canceled order no need for refund no drivers available")
+            // refund the customer
+            // const refund = await stripe.refunds.create({
+            //     payment_intent: snapShot.data().paymentIntent,
+            // })
+            listenerForOrderUpdates()
+        }
+    })
+
+
+
+
+    return { 
+        orderId: newOrder.id, 
+    }
     
     // const user = jwt.verify(context.token, process.env.SECRET, function(err, decoded){ 
     //     if(err){ 
@@ -73,11 +117,7 @@ const addOrder = async (_, args, context) => {
 
     
 
-    const paymentIntent = await stripe.paymentIntents.create({ 
-        amount: args.total * .27, 
-        currency: "usd", 
-        payment_method_types: ["card"],
-    })
+    
     // // const owner = await models.OwnerJoins.findOne({ 
         
     // // })

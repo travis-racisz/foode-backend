@@ -17,6 +17,7 @@ const driverCompletesDelivery = require('./mutations/driverCompletesDelivery')
 const requestPasswordReset = require('./mutations/requestPasswordReset')
 const getOrders = require('./queries/getOrders')
 const getAllOrders = require('./queries/getAllOrders')
+const  createPaymentIntent  = require('./mutations/createPaymentIntent')
 const {sequelize} = require('../utils/sequelize')
 const { Op } = require('sequelize')
 
@@ -38,7 +39,8 @@ const resolvers = {
         driverAcceptsOrder: driverAcceptsOrder,
         requestPasswordReset: requestPasswordReset,
         passwordReset: passwordReset,
-        driverCompletesDelivery: driverCompletesDelivery
+        driverCompletesDelivery: driverCompletesDelivery,
+        createPaymentIntent: createPaymentIntent
     },
     Query: { 
         getOrder: getOrders,
