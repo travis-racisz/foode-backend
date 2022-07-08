@@ -2,6 +2,8 @@ const { sequelize } = require('../../utils/sequelize')
 const { models } = sequelize
 const bcrypt = require('bcrypt')
 const stripe = require('stripe')(process.env.STRIPESECRET);
+const sendmail = require("../../mailer/mailer.js");
+const jwt = require('jsonwebtoken');
     // should move this to an env var for production
     
     
@@ -22,10 +24,13 @@ const stripe = require('stripe')(process.env.STRIPESECRET);
             email:args.email, 
             password: password, 
             stripe_id: account.id,
-            firstName: args.firstName, 
-            lastName: args.lastName
+            // firstName: args.firstName, 
+            // lastName: args.lastName
         })
 
+        // send an email to the user to verify their account, then route them to their onboarding account link
+        const signature = jwt.sign(newDriver, process.env.SECRET, {expiresIn: "2h"})
+        sendmail(_, args.email, process.env.EMAIL, "Verify Email", `click here to verify your account http://localhost::8175/verify/${signature}`)
         // create an account link to get the user to finish their onboarding
         const accountLink = await stripe.accountLinks.create({ 
             account: account.id, 

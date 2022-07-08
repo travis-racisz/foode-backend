@@ -83,7 +83,6 @@ const typeDefs = gql`
         size: String,
         priceId: String,
         menu_id: Int
-
     }
 
     
@@ -155,6 +154,7 @@ const typeDefs = gql`
     }
 
     input OptionsGroupInput{
+        id: ID
         name: String,
         description: String,
         numberOfChoices: Int,
@@ -172,7 +172,8 @@ const typeDefs = gql`
         firstName: String, 
         lastName:String,
         url: String,
-        token: String
+        token: String, 
+        verified: Boolean
     }
     
 

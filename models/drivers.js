@@ -30,7 +30,8 @@ module.exports = (sequelize, DataTypes) => {
     failed_Login_Attempts: DataTypes.INTEGER,
     currently_delivering: DataTypes.BOOLEAN,
     account_locked_until: DataTypes.STRING,
-    stripe_id: DataTypes.STRING
+    stripe_id: DataTypes.STRING, 
+    verified: DataTypes.BOOLEAN
   })
   return Drivers;
 };

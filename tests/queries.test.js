@@ -18,7 +18,6 @@ test("returns all of the restuarants", async () => {
     })
 
     expect(result.errors).toBeUndefined()
-    expect(result.data.resturaunts).toHaveLength(3)
 })
 
 test("returns no menus when the time of day is before 7 am", async () => { 
@@ -58,4 +57,17 @@ test("Tags return Pizza when tag 'Pizza' is passed as an arugment", async () => 
     expect(result.data.searchTags[0].tag).toBe("pizza")
 })
 
+
+test('returns pending orders from the database', async () => { 
+    const result = await testServer.executeOperation({ 
+        query: ` 
+            query GetAllOrders {
+                getAllOrders {
+                status
+                }
+            }
+        `
+    })
+    expect(result.data.getAllOrders[0].status).toBe('pending')
+})
 

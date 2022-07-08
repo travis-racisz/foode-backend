@@ -1,15 +1,19 @@
 const { sequelize } = require('../../utils/sequelize')
 const { models } = sequelize
+const db = require('../../utils/firebaseConfig')
+
+
 
 const getAllOrders = async(_, args, context) => { 
-    // return all orders that are awaiting drivers
-    const orders = await models.Orders.findAll({
-        where: { 
-            status: "awaiting driver"
-        }, 
-        include: [models.OrderItems, models.Users]
+    // return all orders that are currently pending in google firestore
+    const collection = await db.collection('orders')
+    const availableOrders = await collection.where('status', '==', 'pending').get()
+    const orders = []
+    availableOrders.forEach(doc => { 
+        orders.push(doc.data())
     })
-    console.log(orders)
     return orders
+
+    // console.log(availableOrders)
 }
 module.exports = getAllOrders

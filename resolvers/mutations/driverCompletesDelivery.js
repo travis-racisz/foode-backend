@@ -36,6 +36,7 @@ const driverCompletesDelivery = async (_, args, context) => {
             id: user.id
         }
     })
+``
     const updatedDriver = await driver.update({ 
         currentlyDelivering: false
     })

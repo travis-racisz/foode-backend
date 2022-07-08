@@ -1,3 +1,4 @@
+const sequelize = require("sequelize");
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -51,6 +52,10 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
+      }, 
+      verified: { 
+        type: Sequelize.BOOLEAN, 
+        defaultValue: false
       }
     });
   },
