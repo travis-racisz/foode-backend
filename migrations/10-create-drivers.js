@@ -49,6 +49,9 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       },
+      phoneNumber: { 
+        type: Sequelize.INTEGER
+      },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE

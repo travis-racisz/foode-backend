@@ -34,10 +34,11 @@ const typeDefs = gql`
     type Order{ 
         id:ID, 
         user_id: String, 
-        OrderItems: [OrderItems],
+        orderDetails: [OrderItems],
         User: User
         status: String,
-        price: Int
+        driverDetails: Driver
+        total: Int
     }
 
 
@@ -52,6 +53,7 @@ const typeDefs = gql`
         hasPayed: Boolean,
         userId: String,
     }
+
 
     type OrderItems{ 
         id: ID, 
@@ -173,7 +175,23 @@ const typeDefs = gql`
         lastName:String,
         url: String,
         token: String, 
-        verified: Boolean
+        verified: Boolean,
+        stripe_id: String
+    }
+
+    type AccountLink{ 
+        url: String
+    }
+
+    input Cart { 
+        id: ID, 
+        name: String, 
+        price: Int,
+        order_id: Int,
+        options: [OptionsInput]
+        optionsGroup: [OptionsGroupInput]
+        description: String,
+        priceId: String
     }
     
 
@@ -188,6 +206,9 @@ const typeDefs = gql`
         getOwners(ownerId: Int): [Owner]
         getOrder(orderId: Int): Order
         getAllOrders: [Order]
+        getDriverProfile(token: String): Driver
+        getDriversCompletedOrders(id:String): [Order]
+        getDriversStripeProfile(stripeAccount: String): AccountLink
     }
 
     type Mutation { 
@@ -208,8 +229,9 @@ const typeDefs = gql`
         driverAcceptsOrder(orderId: String): Order
         requestPasswordReset(email: String): EmailResponse
         passwordReset(password: String): EmailResponse
-        driverCompletesDelivery(orderId: String): Order
+        driverCompletesDelivery(orderId: String, token: String): Order
         createPaymentIntent(total: Float, orderId: String): ClientSecret
+        
     }
 
  

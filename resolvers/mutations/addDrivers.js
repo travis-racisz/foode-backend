@@ -28,14 +28,16 @@ const jwt = require('jsonwebtoken');
             // lastName: args.lastName
         })
 
+      
+
         // send an email to the user to verify their account, then route them to their onboarding account link
-        const signature = jwt.sign(newDriver, process.env.SECRET, {expiresIn: "2h"})
+        const signature = jwt.sign(newDriver.dataValues, process.env.SECRET, {expiresIn: "2h"})
         sendmail(_, args.email, process.env.EMAIL, "Verify Email", `click here to verify your account http://localhost::8175/verify/${signature}`)
         // create an account link to get the user to finish their onboarding
         const accountLink = await stripe.accountLinks.create({ 
             account: account.id, 
             refresh_url: "http://localhost:3000/",
-            return_url: "http://localhost:3000/",
+            return_url: "http://localhost:3000/driver/inprocessing",
             type: "account_onboarding"
         })
         return accountLink

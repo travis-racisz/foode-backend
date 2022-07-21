@@ -17,9 +17,12 @@ const driverCompletesDelivery = require('./mutations/driverCompletesDelivery')
 const requestPasswordReset = require('./mutations/requestPasswordReset')
 const getOrders = require('./queries/getOrders')
 const getAllOrders = require('./queries/getAllOrders')
+const getDriverProfile = require('./mutations/getDriverProfile')
 const  createPaymentIntent  = require('./mutations/createPaymentIntent')
 const {sequelize} = require('../utils/sequelize')
 const { Op } = require('sequelize')
+const getDriversCompletedOrders = require('./queries/getDriversCompletedOrders')
+const getDriversStripeProfile = require('./queries/getDriversStripeProfile')
 
 const resolvers = { 
     Mutation: { 
@@ -40,11 +43,15 @@ const resolvers = {
         requestPasswordReset: requestPasswordReset,
         passwordReset: passwordReset,
         driverCompletesDelivery: driverCompletesDelivery,
-        createPaymentIntent: createPaymentIntent
+        createPaymentIntent: createPaymentIntent,
+        
     },
     Query: { 
         getOrder: getOrders,
         getAllOrders: getAllOrders,
+        getDriverProfile: getDriverProfile,
+        getDriversCompletedOrders: getDriversCompletedOrders,
+        getDriversStripeProfile: getDriversStripeProfile,
         async resturaunt(root, { id },  { loader }){ 
             return await sequelize.models.Resturaunts.findAll({ 
                 where: {id: id}

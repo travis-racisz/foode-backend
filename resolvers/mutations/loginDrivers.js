@@ -7,10 +7,12 @@ const loginDrivers = async (_, args, context) => {
     // find user in database based on email 
     // compare hashed password to hased argument password
     // if they match sign the user with jwt and return that
+    console.log(args, 'args in auth')
 
     const driver = await models.Drivers.findOne({ 
         where: {email: args.email}, 
     })
+
     
     if(!driver){ 
         throw new Error("Email or password is incorrect please try again")
@@ -29,23 +31,24 @@ const loginDrivers = async (_, args, context) => {
             throw new Error("Email or password is incorrect please try again")
         } 
         if(isMatch){ 
+            console.log('ismatch')
             
             const token = jwt.sign(driver.dataValues, process.env.SECRET, {expiresIn: '12h'})
             const stripeAccount = await stripe.accounts.retrieve( 
-                driver.stripe_id
+                driver.dataValues.stripe_id
             )
+            
             // check if the account has any required actions
             if(stripeAccount.requirements.currently_due.length > 0){ 
                 // if they do create an onboarding link for them to go to
                 const accountLink = await stripe.accountLinks.create({ 
-                    account: driver.stripe_id, 
+                    account: driver.dataValues.stripe_id, 
                     refresh_url: "http://localhost:3000/",
-                    return_url: "http://localhost:3000/",
+                    return_url: "http://localhost:3000/driver/dashboard",
                     type: "account_onboarding"
                 })
-                return accountLink
+                return {url: accountLink.url, token: token} 
             }
-            console.log(stripeAccount)
             return {token: token}
         }
     }
