@@ -13,7 +13,9 @@ module.exports = {
        resetToken: { 
          type: Sequelize.STRING
        }, 
-       streetAddress: Sequelize.STRING,
+       phoneNumber: { 
+         type: Sequelize.STRING
+       },
        buildingNumber: Sequelize.STRING, 
        roomNumber: Sequelize.STRING, 
        base: { 
@@ -24,7 +26,8 @@ module.exports = {
        },
        firstName: Sequelize.STRING, 
        lastName: Sequelize.STRING,
-       specialDirections: Sequelize.STRING,
+       specialInstructions: Sequelize.STRING,
+       completedRegistration: Sequelize.BOOLEAN,
       roles: {
         type: Sequelize.STRING,
       },

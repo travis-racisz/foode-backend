@@ -17,12 +17,13 @@ const driverCompletesDelivery = require('./mutations/driverCompletesDelivery')
 const requestPasswordReset = require('./mutations/requestPasswordReset')
 const getOrders = require('./queries/getOrders')
 const getAllOrders = require('./queries/getAllOrders')
-const getDriverProfile = require('./mutations/getDriverProfile')
+const getDriverProfile = require('./queries/getDriverProfile')
 const  createPaymentIntent  = require('./mutations/createPaymentIntent')
 const {sequelize} = require('../utils/sequelize')
 const { Op } = require('sequelize')
 const getDriversCompletedOrders = require('./queries/getDriversCompletedOrders')
 const getDriversStripeProfile = require('./queries/getDriversStripeProfile')
+const getUserProfile = require('./queries/getUserProfile')
 
 const resolvers = { 
     Mutation: { 
@@ -50,6 +51,7 @@ const resolvers = {
         getOrder: getOrders,
         getAllOrders: getAllOrders,
         getDriverProfile: getDriverProfile,
+        getUserProfile: getUserProfile,
         getDriversCompletedOrders: getDriversCompletedOrders,
         getDriversStripeProfile: getDriversStripeProfile,
         async resturaunt(root, { id },  { loader }){ 

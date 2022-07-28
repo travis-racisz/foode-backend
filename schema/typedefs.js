@@ -125,11 +125,12 @@ const typeDefs = gql`
         lastName: String, 
         buildingNumber: String, 
         roomNumber: String,
-        streetAddress: String,
+        completedRegistration:Boolean,
+        phoneNumber: String,
         email: String, 
         token: String, 
         roles: String, 
-        specialDirections: String
+        specialInstructions: String
         createdAt: String, 
         updatedAt: String
     }
@@ -193,6 +194,7 @@ const typeDefs = gql`
         description: String,
         priceId: String
     }
+
     
 
     type Query { 
@@ -209,12 +211,13 @@ const typeDefs = gql`
         getDriverProfile(token: String): Driver
         getDriversCompletedOrders(id:String): [Order]
         getDriversStripeProfile(stripeAccount: String): AccountLink
+        getUserProfile(token: String!): User
     }
 
     type Mutation { 
         addUser(token: String, email: String): User
         sendMail(email: String): EmailResponse
-        updateUser(token: String, email: String, streetAddress: String, firstName: String, lastName: String, buildingNumber: String, roomNumber: String, specialDirections: String): User
+        updateUser(token: String, email: String, buildingNumber: String, firstName: String, lastName: String, roomNumber: String, specialInstructions: String, phoneNumber: String, completedRegistration: Boolean): User
         addOwner(email: String, password: String): Owner
         addResturaunt(name: String, baseId: Int, openingHour: Int, closingHour: Int): Resturaunt
         loginOwner(email: String, password: String): Owner

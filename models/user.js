@@ -22,18 +22,18 @@ module.exports = (sequelize, DataTypes) => {
     resetToken: { 
       type: DataTypes.STRING
     }, 
-    streetAddress: DataTypes.STRING,
     buildingNumber: DataTypes.STRING, 
     roomNumber: DataTypes.STRING, 
     base: { 
       type: DataTypes.STRING, 
     },
+    completedRegistration: DataTypes.BOOLEAN,
     baseId: { 
       type: DataTypes.INTEGER, 
     },
     firstName: DataTypes.STRING, 
     lastName: DataTypes.STRING,
-    specialDirections: DataTypes.STRING, 
+    specialInstructions: DataTypes.STRING, 
   }, 
  )
 
